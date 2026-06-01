@@ -79,6 +79,11 @@
 			reg = <0x6a>;
 			vdd-supply = <&pm8953_l10>;
 			vddio-supply = <&pm8953_l6>;
+
+			pinctrl-names = "default";
+                        pinctrl-0 = <&imu_int_default>;
+                        interrupt-parent = <&tlmm>;
+                        interrupts = <42 IRQ_TYPE_EDGE_RISING>;
 			mount-matrix = "-1", "0", "0",
 					"0", "1", "0",
 					"0", "0", "1";
@@ -278,6 +283,13 @@
 
 &tlmm {
 	gpio-reserved-ranges = <0 4>, <135 4>;
+
+	imu_int_default: imu-int-default-state {
+		pins = "gpio42";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
 };
 
 &wcd_codec {
